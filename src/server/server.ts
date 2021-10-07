@@ -92,11 +92,11 @@ app.put('/update-product/:id', function(req, res) {
 
 //create-user
 app.post('/create-user', function(req,res){
-    const {firstName, lastName, email, hashedPassword} = req.body;
+    const {firstName, lastName, email, password} = req.body;
     // salt and hash orignial password to encrypted password
     bcrypt.genSalt(saltRounds, function(err, salt) {
         console.log('salt: '+ salt);
-        bcrypt.hash(hashedPassword, salt, function(err, hash) {
+        bcrypt.hash(password, salt, function(err, hash) {
             console.log('hash' + hash);
             // store hash in database here
             const user = new UserModel({

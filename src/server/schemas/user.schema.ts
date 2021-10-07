@@ -4,7 +4,7 @@ import { User } from '../../shared/models/user.model.js';
 const {Schema, model} = mongoose;
 
 const userSchema = new Schema<User>({
-    //id: {type: String},
+    id: {type: String},
     firstName: {type: String, required: true},
     lastName: {type: String},
     email: {type: String, required: true},
