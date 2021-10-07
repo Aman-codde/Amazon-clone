@@ -1,8 +1,10 @@
 
 import express from 'express';
 import cors from 'cors';
-import { UserModel } from './schemas/user.schema.js'
+import bcrypt from 'bcrypt';
+import { ProductModel } from './schemas/product.schema.js'
 import mongoose from 'mongoose';
+import { UserModel } from './schemas/user.schema.js';
 
 const app = express();
 const PORT = 3501;
@@ -22,31 +24,93 @@ app.get('/', function(req, res) {
    res.json({message:'test'});
 });
 
-app.get('/users', function(req,res){
-    UserModel.find()
+// show products
+app.get('/products', function(req,res){
+    ProductModel.find()
     .then(data => res.json({data}))
     .catch(err => {
         res.status(501)
         res.json({errors: err});
     })
 });
-app.post('/create-user', function(req,res){
-    const {name, email, username} = req.body;
-    const user = new UserModel({
+
+//create product
+app.post('/create-product', function(req,res){
+    const {name, price, quantity, imgUrl} = req.body;
+    const product = new ProductModel({
         name,
-        username,
+        price,
+        quantity,
+        imgUrl
+    });
+    product.save()
+    .then((data) => {
+        res.json({data});
+    })
+    .catch(err => {
+        res.status(501).json({errors: err});
+    })
+});
+
+// delete product
+app.delete('/delete-product/:id', function(req, res) {
+    const _id = req.params.id;
+    ProductModel.findByIdAndDelete(_id).then((data) => {
+        console.log(data);
+        res.json({data});
+    });
+})
+
+// update product
+app.put('/update-product/:id', function(req, res) {
+    console.log("Update product");
+    ProductModel.findByIdAndUpdate(
+        req.params.id,
+        {
+            $set: { name: req.body.name, price: req.body.price, quantity: req.body.quantity, imgUrl: req.body.imgUrl },
+        },
+        {
+            new: true,
+        },
+        function(err, updateProduct) {
+            if(err) {
+                res.send("Error updating product");
+            }
+            else{
+                res.json(updateProduct);
+            }
+        }
+    )
+})
+
+//create-user
+app.post('/create-user', function(req,res){
+    const {firstName, lastName, email, hashedPassword} = req.body;
+    const user = new UserModel({
+        firstName,
+        lastName,
         email,
+        hashedPassword 
     });
     user.save()
     .then((data) => {
         res.json({data});
     })
     .catch(err => {
-        res.status(501);
-        res.json({errors: err});
+        res.status(501).json({errors: err});
     })
 });
 
+// show users
+app.get('/users', function(req,res){
+    UserModel.find()
+    .then(data => res.json({data}))
+    .catch(err => {
+        res.status(501).json({errors: err});
+    })
+});
+
+// delete user
 app.delete('/delete-user/:id', function(req, res) {
     const _id = req.params.id;
     UserModel.findByIdAndDelete(_id).then((data) => {
@@ -55,12 +119,14 @@ app.delete('/delete-user/:id', function(req, res) {
     });
 })
 
+
+//update user
 app.put('/update-user/:id', function(req, res) {
     console.log("Update user");
     UserModel.findByIdAndUpdate(
         req.params.id,
         {
-            $set: { name: req.body.name, email: req.body.email },
+            $set: { firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, hashedPassword: req.body.hashedPassword },
         },
         {
             new: true,
@@ -75,6 +141,7 @@ app.put('/update-user/:id', function(req, res) {
         }
     )
 })
+
 
 
 app.listen(PORT, function(){
