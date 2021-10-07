@@ -1,6 +1,7 @@
 
 import express from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import { ProductModel } from './schemas/product.schema.js'
 import mongoose from 'mongoose';
@@ -9,16 +10,22 @@ import { UserModel } from './schemas/user.schema.js';
 const app = express();
 const PORT = 3501;
 
+
+app.use(cors());
+app.use(express.json());
+
+const saltRounds = 10;
+// var password = 'Dihjy%^723*polnhg';
+
+//dotenv.config();
+//console.log(process.env.ACCESS_TOKEN); what to write in #env file?????
+
 mongoose.connect('mongodb://localhost:27017/amazonCloneDB')
 .then(() => {
     console.log('Connected to DB Successfully');
 })
 .catch(err => console.log('Failed to Connect to DB', err))
 
-
-
-app.use(cors());
-app.use(express.json());
 
 app.get('/', function(req, res) {
    res.json({message:'test'});
@@ -86,19 +93,27 @@ app.put('/update-product/:id', function(req, res) {
 //create-user
 app.post('/create-user', function(req,res){
     const {firstName, lastName, email, hashedPassword} = req.body;
-    const user = new UserModel({
-        firstName,
-        lastName,
-        email,
-        hashedPassword 
+    // salt and hash orignial password to encrypted password
+    bcrypt.genSalt(saltRounds, function(err, salt) {
+        console.log('salt: '+ salt);
+        bcrypt.hash(hashedPassword, salt, function(err, hash) {
+            console.log('hash' + hash);
+            // store hash in database here
+            const user = new UserModel({
+                firstName,
+                lastName,
+                email,
+                hashedPassword : hash // pass password as type hash
+            });
+            user.save()
+            .then((data) => {
+                res.json({data});
+            })
+            .catch(err => {
+                res.status(501).json({errors: err});
+            })
+        })
     });
-    user.save()
-    .then((data) => {
-        res.json({data});
-    })
-    .catch(err => {
-        res.status(501).json({errors: err});
-    })
 });
 
 // show users
