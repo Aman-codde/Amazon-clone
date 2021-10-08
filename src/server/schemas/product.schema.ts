@@ -6,7 +6,11 @@ const productSchema = new Schema<Product>({
     name: {type: String, required: true},
     price: {type: Number, required: true},
     quantity: {type: Number, required: true},
-    imgUrl: {type: String}
+    imgUrl: {type: String},
+    category: {type: String},
+    author: {type: String},
+    subCategory: {type: String},
+    artists: {type: [String]},
 })
 
 export const ProductModel = model<Product>('Product',productSchema)
