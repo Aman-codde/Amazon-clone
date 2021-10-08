@@ -15,6 +15,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './store/effects/user/user.effects';
 import { PageUsersComponent } from './pages/page-users/page-users.component';
 import { ProductInputComponent } from './components/product-input/product-input.component';
+import * as fromProduct from './store/reducers/product/product.reducer';
+import { ProductEffects } from './store/effects/product/product.effects';
+
+import { ProductsListComponent } from './components/products-list/products-list.component';
+import { PageProductsComponent } from './pages/page-products/page-products.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +27,9 @@ import { ProductInputComponent } from './components/product-input/product-input.
     UsersListComponent,
     UserInputComponent,
     PageUsersComponent,
-    ProductInputComponent
+    ProductInputComponent,
+    PageProductsComponent,
+    ProductsListComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +40,8 @@ import { ProductInputComponent } from './components/product-input/product-input.
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreModule.forFeature(fromUser.userFeatureKey, fromUser.reducer),
-    EffectsModule.forRoot([UserEffects]),
+    EffectsModule.forRoot([UserEffects, ProductEffects]),
+    StoreModule.forFeature(fromProduct.productFeatureKey, fromProduct.reducer),
   ],
   providers: [],
   bootstrap: [AppComponent]

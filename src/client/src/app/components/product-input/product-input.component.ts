@@ -21,7 +21,7 @@ export class ProductInputComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  postUser(){
+  postProduct(){
     
   }
 
