@@ -1,7 +1,7 @@
 
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
+//import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import { ProductModel } from './schemas/product.schema.js'
 import mongoose from 'mongoose';
@@ -31,9 +31,21 @@ app.get('/', function(req, res) {
    res.json({message:'test'});
 });
 
+// show products whose quantity is 5 and 7
+/*app.post('/products', function(req,res){
+    //console.log({req.body});
+    ProductModel.find({'quantity': {$in: [5,7]}})
+    .then(data => res.json({data}))
+    .catch(err => {
+        res.status(501)
+        res.json({errors: err});
+    })
+});*/
+
 // show products
-app.get('/products', function(req,res){
-    ProductModel.find()
+app.post('/products', function(req,res){
+    console.log(req.body);
+    ProductModel.find(req.body)
     .then(data => res.json({data}))
     .catch(err => {
         res.status(501)
