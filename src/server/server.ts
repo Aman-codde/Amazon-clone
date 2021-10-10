@@ -44,7 +44,7 @@ app.get('/', function(req, res) {
 
 // show products
 app.post('/products', function(req,res){
-    console.log(req.body);
+    console.log('hello',req.body);
     ProductModel.find(req.body)
     .then(data => res.json({data}))
     .catch(err => {

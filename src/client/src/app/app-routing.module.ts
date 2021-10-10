@@ -7,6 +7,8 @@ import { PageUsersComponent } from './pages/page-users/page-users.component';
 const routes: Routes = [
   {path: 'users', component: PageUsersComponent},
   {path: 'products/category/:categoryName', component: PageProductsComponent},
+  // {path: 'products/subCategory/:subCategoryName', component: PageProductsComponent},
+  //{path: 'products/category/:categoryName/:subCategoryName', component: PageProductsComponent},
   {path: '', component: PageProductsComponent}
 ];
 

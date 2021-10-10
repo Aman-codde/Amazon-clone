@@ -20,6 +20,7 @@ import { ProductEffects } from './store/effects/product/product.effects';
 
 import { ProductsListComponent } from './components/products-list/products-list.component';
 import { PageProductsComponent } from './pages/page-products/page-products.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { PageProductsComponent } from './pages/page-products/page-products.compo
     PageUsersComponent,
     ProductInputComponent,
     PageProductsComponent,
-    ProductsListComponent
+    ProductsListComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

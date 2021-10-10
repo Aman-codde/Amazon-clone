@@ -6,9 +6,8 @@ export interface Product {
     quantity: number,
     imgUrl?: string,
     category: string,
+    subCategory?: string, // (men,women,boy,girl etc)
     author?: string,// book
     colors?: [string], // clothes etc
     sizes?: [string], // clothes(S,XS,M,L,Xl etc.)
-    artists?: [string], // music
-    subCategory?: string, // (men,women,boy,girl etc)
 }

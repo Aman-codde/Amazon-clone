@@ -23,8 +23,10 @@ export class ProductsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      console.log(params);
+      console.log(params , 'inside products-list');
+
       this.store.dispatch(loadProducts({data: params.categoryName}));
+     // this.store.dispatch(loadProducts({data: params.subCategoryName}));
     })
   }
 

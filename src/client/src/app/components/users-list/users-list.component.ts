@@ -21,16 +21,12 @@ export class UsersListComponent implements OnInit {
   constructor(
     private userService: UserService,
     private store: Store<AppState>,
-    ) {
-
-
-  }
+    ) 
+  { }
 
   ngOnInit(): void {
     this.store.dispatch(loadUsers());
   }
-
-
 
   deleteUser(user: User) {
     this.store.dispatch(deleteUser({data: user}))
