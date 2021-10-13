@@ -2,9 +2,10 @@ ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    background-color: #dddddd;
+    //background-color: #dddddd;
     overflow: hidden;
-    background-color: #333;
+    background-color: rgb(28, 29, 41);
+    //background-color: #333;
 }
 
 p {
@@ -18,15 +19,17 @@ li {
 }
   
 li a {
+  margin: 5px;
   display: block;
   color: white;
   text-align: center;
-  padding: 14px 16px;
+  padding: 8px;
   text-decoration: none;
 }
 
 li a:hover {
-    background-color: #111;
+    border:  1px solid white;
+
 }
 
 .active {

@@ -45,7 +45,6 @@ export class UserInputComponent implements OnInit, OnChanges {
       this.addUser.get('firstName')?.setValue(user.firstName);
       this.addUser.get('lastName')?.setValue(user.lastName);
       this.addUser.get('email')?.setValue(user.email);
-      this.addUser.get('password')?.setValue(user.hashedPassword);
       this.addUser.updateValueAndValidity();
     }
   }

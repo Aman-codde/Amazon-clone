@@ -21,6 +21,10 @@ import { ProductEffects } from './store/effects/product/product.effects';
 import { ProductsListComponent } from './components/products-list/products-list.component';
 import { PageProductsComponent } from './pages/page-products/page-products.component';
 import { HeaderComponent } from './components/header/header.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SignInComponent } from './components/sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,10 @@ import { HeaderComponent } from './components/header/header.component';
     ProductInputComponent,
     PageProductsComponent,
     ProductsListComponent,
-    HeaderComponent
+    HeaderComponent,
+    ProductDetailsComponent,
+    FooterComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +51,7 @@ import { HeaderComponent } from './components/header/header.component';
     StoreModule.forFeature(fromUser.userFeatureKey, fromUser.reducer),
     EffectsModule.forRoot([UserEffects, ProductEffects]),
     StoreModule.forFeature(fromProduct.productFeatureKey, fromProduct.reducer),
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

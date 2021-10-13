@@ -14,8 +14,9 @@ export class ProductInputComponent implements OnInit {
   { 
     this.addProduct = this.fb.group({
       name: ['', Validators.required],
-      price: ['', Validators.required],
-      quantity: ['',Validators.compose([Validators.required, Validators.minLength(5)])]
+      price: ['', Validators.required],// default: 0??
+      quantity: ['',Validators.required],
+      imgUrl: ['',Validators.required]
     })
   }
 

@@ -1,11 +1,17 @@
 <p>products-list works!</p>
 
-
-<div *ngFor="let item of products">
-    <img src={{item.imgUrl}}>
-    <p class="name">{{item.name}}</p>
-    <p class="price">$ <strong>{{item.price}}</strong></p>
-    <button>Add to cart</button>
+<div *ngFor="let product of products">
+    <div>
+        <img src={{product.imgUrl}}>
+        <p class="name" (click) = "showProduct(product?._id)">
+            {{product.name}}
+            <!--<app-product-details [product]="selected_product" #childComponent></app-product-details>-->
+        </p>
+        <p class="price">$ <strong>{{product.price}}</strong><p>
+        <p class="qty">qty: {{product.quantity}}</p>
+        <button (click)= "addToCart()">Add to cart</button>
+    </div>
 </div>
+
 
 

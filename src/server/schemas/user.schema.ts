@@ -11,7 +11,7 @@ const userSchema = new Schema<User>({
     hashedPassword: {type: String, required:true}
 })
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function(next) { 
     //this.id = this.email;
     this.id = `${this.email ? this.email : ''}`;
     next();
