@@ -1,11 +1,11 @@
 
 import express from 'express';
 import cors from 'cors';
-//import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import { ProductModel } from './schemas/product.schema.js'
 import mongoose from 'mongoose';
 import { UserModel } from './schemas/user.schema.js';
+import { CategoryModel } from './schemas/category.schema.js';
 
 const app = express();
 const PORT = 3501;
@@ -15,10 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 const saltRounds = 10;
-// var password = 'Dihjy%^723*polnhg';
 
-//dotenv.config();
-//console.log(process.env.ACCESS_TOKEN); what to write in #env file?????
 
 mongoose.connect('mongodb://localhost:27017/amazonCloneDB')
 .then(() => {
@@ -31,18 +28,29 @@ app.get('/', function(req, res) {
    res.json({message:'test'});
 });
 
-// show products whose quantity is 5 and 7
-/*app.post('/products', function(req,res){
-    //console.log({req.body});
-    ProductModel.find({'quantity': {$in: [5,7]}})
-    .then(data => res.json({data}))
-    .catch(err => {
-        res.status(501)
-        res.json({errors: err});
-    })
-});*/
+//show category collection 
+app.get('/categories', function(req,res) {
+    CategoryModel
+    .find()
+    .then( data => {
+        console.log(data)
+        res.json( {data} )})
+    .catch(err => res.json(err))
+})
 
-// show products
+// create category
+app.post('/create-category', function(req,res) {
+    const new_category = new CategoryModel(req.body)
+    new_category
+    .save()
+    .then(data => {
+        console.log('new category created', {data});
+        res.json({data})
+    })
+    .catch(err => res.json(err))//which status number?
+})
+
+// show products collection
 app.post('/products', function(req,res){
     console.log('hello',req.body);
     ProductModel.find(req.body)
