@@ -6,4 +6,5 @@ export interface Product {
     quantity: number,
     imgUrl?: string,
     categories?: [string],
+    isValid: boolean
 }

@@ -79,8 +79,13 @@ app.post('/update-parent-category', function(req,res) {
 
 // show products collection
 app.post('/products', function(req,res){
-    console.log('hello',req.body);
-    ProductModel.find(req.body)
+    const query: any = {};
+    if(req.body.categories)
+    {
+        query.categories = {$in:[req.body.categories]};
+    }
+    console.log('hello',query);
+    ProductModel.find(query)
     .then(data => res.json({data}))
     .catch(err => {
         res.status(501)

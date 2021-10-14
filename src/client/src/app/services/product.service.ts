@@ -23,7 +23,7 @@ export class ProductService {
   }
 
   getCategories() {
-    return this.api.get<{data: Category[]}>('categories').pipe(map(res => res.data),tap(data => console.log(data)));
+    return this.api.get<{data: Category[]}>('categories').pipe(map(res => res.data),tap(data => console.log('product service data', data)));
   }
 
  

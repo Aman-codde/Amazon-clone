@@ -22,24 +22,13 @@ export class CategoriesListComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       console.log(params , 'inside categories-list ');
-
-      this.store.dispatch(loadProducts({data: params.categoriesName}));
+    this.store.dispatch(loadProducts({data: params.categories}));
     })
-
-    /*goProducts() {
-      this.router.navigate(['/products'], { queryParams: { order: 'popular', 'price-range': 'not-cheap' } });
-    }*/
-
-
-    /*this.route.queryParams
-      //.filter(params => params.categoriesName)
-      .subscribe(params => {
-        console.log(params); // { order: "popular" }
-
-       // this.order = params.order;
-        //console.log(this.order); // popular*/
+  
   }
-
+  /*goToCategory(categories_array: string[] ) {
+    this.route.navigate(['/products'], { queryParams: {categories: [categories_array]  } });
+  }*/
 
 
 }
