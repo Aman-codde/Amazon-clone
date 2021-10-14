@@ -25,6 +25,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { FooterComponent } from './components/footer/footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SignInComponent } from './components/sign-in/sign-in.component';
+import { CategoriesListComponent } from './components/categories-list/categories-list.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
     HeaderComponent,
     ProductDetailsComponent,
     FooterComponent,
-    SignInComponent
+    SignInComponent,
+    CategoriesListComponent
   ],
   imports: [
     BrowserModule,

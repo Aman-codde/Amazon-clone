@@ -5,9 +5,5 @@ export interface Product {
     price: number,
     quantity: number,
     imgUrl?: string,
-    category: string,// clothing,
-    subCategory: string,
-    author?: string,// book
-    colors?: [string], // clothes etc
-    sizes?: [string], // clothes(S,XS,M,L,Xl etc.)
+    categories?: [string],
 }

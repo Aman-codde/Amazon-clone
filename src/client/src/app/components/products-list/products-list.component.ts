@@ -24,19 +24,16 @@ export class ProductsListComponent implements OnInit {
   { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+  
+    this.route.queryParams.subscribe(params => {
       console.log(params , 'inside products-list');
 
-      this.store.dispatch(loadProducts({data: params.categoryName}));
+      this.store.dispatch(loadProducts({data: params.categoriesName}));
     })
-  }
-
-  addToCart() {
+  } 
     
-  }
+  //this.router.navigate(['/products'], { queryParams: { price: '6.98' } });
+  
 
-  showProduct(product_id: any) {
-    this.router.navigate(['/products', product_id])
-  }
 
 }

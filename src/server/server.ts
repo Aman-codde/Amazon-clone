@@ -8,7 +8,7 @@ import { UserModel } from './schemas/user.schema.js';
 import { CategoryModel } from './schemas/category.schema.js';
 
 const app = express();
-const PORT = 3501;
+const PORT = 3502;
 
 
 app.use(cors());
@@ -27,13 +27,27 @@ mongoose.connect('mongodb://localhost:27017/amazonCloneDB')
 app.get('/', function(req, res) {
    res.json({message:'test'});
 });
+// .populate(
+    //     {path: 'parentCategory', 
+    //     populate: [
+    //         {path: 'parentCategory',
+    //         populate: [{path: 'parentCategory'}]
+    //         }
+    //     ]})// populate return array of document in place of original _ids only
 
 //show category collection 
 app.get('/categories', function(req,res) {
     CategoryModel
     .find()
+    .populate(
+             {path: 'parent_category', 
+             populate: [
+                 {path: 'parent_category',
+                 populate: [{path: 'parent_category'}]
+                 }
+             ]})
     .then( data => {
-        console.log(data)
+        console.log("get categories: ",data)
         res.json( {data} )})
     .catch(err => res.json(err))
 })
@@ -49,6 +63,19 @@ app.post('/create-category', function(req,res) {
     })
     .catch(err => res.json(err))//which status number?
 })
+
+// update (or add) parent category if not assigned etc.
+app.post('/update-parent-category', function(req,res) {
+    CategoryModel
+    .findByIdAndUpdate(
+        req.body.id,
+        {parent_category: req.body.parent},
+        {new: true})
+    .then((data) => {
+        console.log('parent Category updated: ', {data})
+        res.json({data})})
+    .catch(err => res.json(err))
+}) 
 
 // show products collection
 app.post('/products', function(req,res){
