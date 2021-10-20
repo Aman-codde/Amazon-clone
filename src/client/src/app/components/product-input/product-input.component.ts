@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store';
+import { createProduct } from 'src/app/store/actions/product/product.actions';
 
 @Component({
   selector: 'app-product-input',
@@ -23,7 +24,7 @@ export class ProductInputComponent implements OnInit {
   ngOnInit(): void {}
 
   postProduct(){
-    
+    this.store.dispatch(createProduct({data : this.addProduct.value}));
   }
 
 }

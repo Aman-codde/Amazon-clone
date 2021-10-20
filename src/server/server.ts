@@ -8,7 +8,7 @@ import { UserModel } from './schemas/user.schema.js';
 import { CategoryModel } from './schemas/category.schema.js';
 
 const app = express();
-const PORT = 3502;
+const PORT = 3503;
 
 
 app.use(cors());

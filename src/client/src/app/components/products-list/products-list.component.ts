@@ -16,23 +16,24 @@ export class ProductsListComponent implements OnInit {
   @Input() public products: Product[] = [];
 
   constructor(
-    private productService: ProductService,
+    
     private store: Store<AppState>,
     private route: ActivatedRoute,
-    private router: Router
+    
   ) 
   { }
 
   ngOnInit(): void {
   
-    this.route.queryParams.subscribe(params => {
-      console.log(params , 'inside products-list');
+    this.route.queryParams.subscribe(params => 
+      {
+        console.log(params , 'inside products-list');
+        this.store.dispatch(loadProducts({data: params.categories}));
+      }
+    )
 
-  this.store.dispatch(loadProducts({data: params.categories}));
-    })
   } 
   
-  //this.router.navigate(['/products'], { queryParams: { price: '6.98' } });
   
 
 

@@ -22,6 +22,11 @@ export class ProductService {
     return this.api.post<{data: Product[]},{categories:string}>('products', {categories}).pipe(map(res => res.data))
   }
 
+  createProduct(product: Product) {
+    console.log(product)
+    return this.api.post<{data:Product},Product>('create-product',product)
+  }
+
   getCategories() {
     return this.api.get<{data: Category[]}>('categories').pipe(map(res => res.data),tap(data => console.log('product service data', data)));
   }
