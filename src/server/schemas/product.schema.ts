@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import type { Product } from '../../shared/models/product.model';
+import type { Product } from '../../shared/models/product.model.js';
 const {Schema, model} = mongoose
 
 const productSchema = new Schema<Product>({
