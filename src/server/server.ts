@@ -8,7 +8,7 @@ import { UserModel } from './schemas/user.schema.js';
 import { CategoryModel } from './schemas/category.schema.js';
 
 const app = express();
-const PORT = 3503;
+const PORT = 3504;
 
 
 app.use(cors());
@@ -93,11 +93,20 @@ app.post('/products', function(req,res){
     })
 });
 
+// show particular product by id 
+app.post('/product/:id', function(req,res) {
+    console.log(req.params);
+    ProductModel
+    .findById(req.params.id)
+    .then(data => res.json(data))
+    .catch(err => {err})
+})
+
 //create product
 app.post('/create-product', function(req,res){
-    const {name, price, quantity, imgUrl} = req.body;
+    const {product_name, price, quantity, imgUrl} = req.body;
     const product = new ProductModel({
-        name,
+        product_name,
         price,
         quantity,
         imgUrl
@@ -126,7 +135,7 @@ app.put('/update-product/:id', function(req, res) {
     ProductModel.findByIdAndUpdate(
         req.params.id,
         {
-            $set: { name: req.body.name, price: req.body.price, quantity: req.body.quantity, imgUrl: req.body.imgUrl },
+            $set: { product_name: req.body.product_name, price: req.body.price, quantity: req.body.quantity, imgUrl: req.body.imgUrl },
         },
         {
             new: true,

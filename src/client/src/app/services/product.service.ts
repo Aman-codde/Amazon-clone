@@ -11,15 +11,15 @@ export class ProductService {
 
   constructor(private api: ApiService) { }
 
-  /*getProduct(productId: string){
-    console.log(productId);
-    return this.api.post<{data: Product[]},{productId: string}>('products', {productId}).pipe(map( res => res.data));
-  }*/
-  
   getProducts(categories: string)
   {
     console.log(categories)
     return this.api.post<{data: Product[]},{categories:string}>('products', {categories}).pipe(map(res => res.data))
+  }
+
+  getProduct(productId: string){
+    console.log(productId);
+    return this.api.post<{data: Product},{productId: string}>('product', {productId}).pipe(map( res => res.data));
   }
 
   createProduct(product: Product) {

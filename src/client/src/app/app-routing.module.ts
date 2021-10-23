@@ -8,6 +8,7 @@ import { PageUsersComponent } from './pages/page-users/page-users.component';
 const routes: Routes = [
   {path: '', component: PageProductsComponent},
   {path: 'products', component: PageProductsComponent},
+  {path: 'product/:id', component: ProductDetailsComponent},
   {path: 'users', component: PageUsersComponent},
   {path: 'products/category/:categoriesName', component: PageProductsComponent},
   {path: 'addProduct', component: ProductInputComponent},

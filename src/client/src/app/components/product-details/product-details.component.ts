@@ -1,9 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { ProductService } from 'src/app/services/product.service';
-import { loadProducts } from 'src/app/store/actions/product/product.actions';
+import { Observable } from 'rxjs';
+import { loadProduct } from 'src/app/store/actions/product/product.actions';
 import { AppState } from 'src/app/store/index.js';
+import { productSelector, selectedProductSelector } from 'src/app/store/selectors/product/product.selectors.js';
+
 import { Product } from '../../../../../shared/models/product.model.js';
 
 @Component({
@@ -12,20 +14,26 @@ import { Product } from '../../../../../shared/models/product.model.js';
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit {
-  //@Input() selected_product: Product;
+  product$: Observable<Product | null>;
+  selectedProduct$: Observable<Product | null>
+  selectedProduct : Product| null = null; // new
 
   constructor(
-    private productService: ProductService,
     private store: Store<AppState>,
     private route: ActivatedRoute,
   ) 
-  { }
+  { 
+    this.product$ = this.store.select(productSelector);
+    this.selectedProduct$ = this.store.select(selectedProductSelector);
+   
+  }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      console.log(params);
-     this.store.dispatch(loadProducts({data: params.productId}));
-    })
+    this.selectedProduct$.subscribe(data => this.selectedProduct = data);
+    const id = ""+this.selectedProduct?._id
+    this.store.dispatch(loadProduct({data: id}))
+
+    
   }
 
 
