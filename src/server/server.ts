@@ -152,30 +152,28 @@ app.put('/update-product/:id', function(req, res) {
 })
 
 //create-user
-app.post('/create-user', function(req,res){
+app.post('/create-user', function(req,res) {
     const {firstName, lastName, email, password} = req.body;
-    // salt and hash orignial password to encrypted password
-    bcrypt.genSalt(saltRounds, function(err, salt) {
-        console.log('salt: '+ salt);
-        bcrypt.hash(password, salt, function(err, hash) {
-            console.log('hash' + hash);
-            // store hash in database here
-            const user = new UserModel({
+    bcrypt.genSalt(saltRounds,function(err, salt) {
+        console.log("salt (complex string generated): ",salt)
+        
+        bcrypt.hash(password,salt,function(err,hash) {
+            console.log("Encrypted/hashed password with salt string added: ", hash);
+
+            const new_user = new UserModel({
                 firstName,
                 lastName,
                 email,
-                hashedPassword : hash // pass password as type hash
+                hashedPassword: hash
             });
-            user.save()
-            .then((data) => {
-                res.json({data});
-            })
-            .catch(err => {
-                res.status(501).json({errors: err});
-            })
+            new_user
+            .save()
+            .then(data => res.json({data}))
+            .catch(err => res.status(501).json({err}));
         })
-    });
-});
+    })
+})
+
 
 // show users
 app.get('/users', function(req,res){
