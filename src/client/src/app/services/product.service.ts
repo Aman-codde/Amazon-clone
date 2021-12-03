@@ -18,8 +18,14 @@ export class ProductService {
   }
 
   getProduct(productId: string){
-    console.log(productId);
-    return this.api.post<{data: Product},{productId: string}>('product', {productId}).pipe(map( res => res.data));
+    console.log("product in services: ",productId);
+    return this.api.post<{data: Product},{productId: string}>('product/'+productId, {productId}).pipe(
+      tap(data => console.log("selected product: ", data)),
+      map( res => res.data));
+  }
+
+  getSelectedProduct(productId: string) {
+    return this.api.post<{data: Product},{productId: string}>('product/'+productId, {productId}).pipe(map(res => res.data));
   }
 
   createProduct(product: Product) {
@@ -29,6 +35,11 @@ export class ProductService {
 
   getCategories() {
     return this.api.get<{data: Category[]}>('categories').pipe(map(res => res.data),tap(data => console.log('product service data', data)));
+  }
+
+  addCategoryToProduct(productId: string,categoryId: string){
+    console.log("ProductId:",productId,"categoryId:",categoryId);
+    return this.api.put<{data:string},string>('update-product/'+productId,categoryId)
   }
 
  

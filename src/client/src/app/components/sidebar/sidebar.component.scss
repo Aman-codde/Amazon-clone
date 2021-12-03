@@ -1,0 +1,22 @@
+/* Global */
+html,width {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Func */
+.multi-level, .item ul, .nav input[type="checkbox"] {
+    display: none;
+}
+
+#menu:checked ~ .multi-level, input:checked ~ ul {
+    display: block;
+}
+
+input:checked ~ label {
+    font-weight: bolder;
+}
+
+

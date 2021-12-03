@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { loginUser } from 'src/app/store/actions/user/user.actions';
 
 @Component({
   selector: 'app-sign-in',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignInComponent implements OnInit {
 
-  constructor() { }
+  authUser: FormGroup;
 
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder,
+    private store: Store) 
+    {
+    this.authUser = this.fb.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    })
+   }
+
+   ngOnInit(): void {
   }
 
+  login() {
+    this.store.dispatch(loginUser({data: this.authUser.value}))
+  }
 }

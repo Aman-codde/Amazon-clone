@@ -26,6 +26,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { CategoriesListComponent } from './components/categories-list/categories-list.component';
+import { AddCategoryComponent } from './components/add-category/add-category.component';
+import { UpdateProductComponent } from './components/update-product/update-product.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { CategoriesListComponent } from './components/categories-list/categories
     ProductDetailsComponent,
     FooterComponent,
     SignInComponent,
-    CategoriesListComponent
+    CategoriesListComponent,
+    AddCategoryComponent,
+    UpdateProductComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,

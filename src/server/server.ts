@@ -47,7 +47,7 @@ app.get('/categories', function(req,res) {
                  }
              ]})
     .then( data => {
-        console.log("get categories: ",data)
+        //console.log("get categories: ",data)
         res.json( {data} )})
     .catch(err => res.json(err))
 })
@@ -84,7 +84,7 @@ app.post('/products', function(req,res){
     {
         query.categories = {$in:[req.body.categories]};
     }
-    console.log('hello',query);
+    //console.log('hello',query);
     ProductModel.find(query)
     .then(data => res.json({data}))
     .catch(err => {
@@ -95,10 +95,14 @@ app.post('/products', function(req,res){
 
 // show particular product by id 
 app.post('/product/:id', function(req,res) {
-    console.log(req.params);
+    console.log("Product selected: ",req.params.id);
     ProductModel
     .findById(req.params.id)
-    .then(data => res.json(data))
+    .populate('categories')
+    .then(data => {
+        console.log("Product choosen: ", data);
+        res.json({data})
+    })
     .catch(err => {err})
 })
 
@@ -130,13 +134,18 @@ app.delete('/delete-product/:id', function(req, res) {
 })
 
 // update product
+//{
+//     $set: { product_name: req.body.product_name, price: req.body.price, quantity: req.body.quantity, imgUrl: req.body.imgUrl },
+// }
 app.put('/update-product/:id', function(req, res) {
-    console.log("Update product");
+    console.log("req.body",req.body);
+    const categoryId = req.body.id;
     ProductModel.findByIdAndUpdate(
         req.params.id,
         {
-            $set: { product_name: req.body.product_name, price: req.body.price, quantity: req.body.quantity, imgUrl: req.body.imgUrl },
-        },
+            $push: {categories: categoryId}
+        }
+        ,
         {
             new: true,
         },
@@ -164,11 +173,15 @@ app.post('/create-user', function(req,res) {
                 firstName,
                 lastName,
                 email,
-                hashedPassword: hash
+                password: hash
             });
+            console.log(new_user);
             new_user
             .save()
-            .then(data => res.json({data}))
+            .then(data => {
+                console.log("new user: ", data)
+                res.json({data})
+            })
             .catch(err => res.status(501).json({err}));
         })
     })
@@ -183,6 +196,31 @@ app.get('/users', function(req,res){
         res.status(501).json({errors: err});
     })
 });
+
+//login user
+app.post('/login', function(req,res) {
+    const {email, password} = req.body;
+
+    UserModel
+    .findOne({email})
+    .then((user: any) => {
+        console.log(user);
+        bcrypt.compare(password, `${user?.password}`,function(err, result) {
+            if(result) {
+                console.log("It matches!");
+                res.json({user});
+                //res.json({message: "Successfully Logged In"});
+            }
+            else {
+                console.log("Invalid password");
+                res.sendStatus(403);
+            }
+        })
+    })
+    .catch(err => {
+        return res.sendStatus(404)
+    })
+})
 
 // delete user
 app.delete('/delete-user/:id', function(req, res) {
@@ -215,6 +253,17 @@ app.put('/update-user/:id', function(req, res) {
         }
     )
 })
+
+// total amount in particular cart($sum, $projection "totalAmountt")
+app.get('/cart-amount', function(req,res) {
+    const user = "615ee77596fadd70d45456a2";
+    ProductModel
+    .find({user})
+    //.populate('products')
+    .then(data => res.json(data))
+    .catch(err => res.json({err}))
+})
+
 
 
 

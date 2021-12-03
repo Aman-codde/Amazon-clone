@@ -1,10 +1,18 @@
 <div>
-    <form [formGroup] = 'addProduct'>
+    <form [formGroup] = 'addProductForm'>
         <input type="text" formControlName='name' placeholder="product name">
-        <input type="number" formControlName='price' placeholder="price">
-        <input type="number" formControlName='quantity' placeholder="quantity">
-        <input type="text" formControlName='imgUrl' placeholder="imgUrl">
-        <button (click)='postProduct()' [disabled]='addProduct.invalid'>Add Product</button>
+
+        <input type="number" min="0.01" step="0.01"
+        formControlName='price' placeholder="price">
+
+        <input type="number" min="1" 
+        onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+        formControlName='quantity' placeholder="available quantity">
+
+        <input type="file" formControlName='imgUrl' placeholder="imgUrl" (change)="onFileSelect($event)">
+        <button (click)="onSubmit()" [disabled]='addProductForm.invalid'>Upload Image</button>
+
+        <!-- <button (click)='postProduct()' [disabled]='addProduct.invalid'>Add Product</button> -->
     </form>
 </div>
 

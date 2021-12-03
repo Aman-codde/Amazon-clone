@@ -10,21 +10,42 @@ import { createProduct } from 'src/app/store/actions/product/product.actions';
   styleUrls: ['./product-input.component.scss']
 })
 export class ProductInputComponent implements OnInit {
-  addProduct: FormGroup;
+  addProductForm: FormGroup;
+  url: any;
+
   constructor(private fb: FormBuilder, private store: Store<AppState>) 
   { 
-    this.addProduct = this.fb.group({
+    this.addProductForm = this.fb.group({
       name: ['', Validators.required],
       price: ['', Validators.required],// default: 0??
       quantity: ['',Validators.required],
-      imgUrl: ['',Validators.required]
+      imgUrl: ['']
     })
   }
 
   ngOnInit(): void {}
 
-  postProduct(){
-    this.store.dispatch(createProduct({data : this.addProduct.value}));
+  onFileSelect(event: any){
+    const file = event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(event.target.files)
+    reader.onload = (event: any) => {
+      this.url = event.target.value
+    }
+    this.addProductForm.get('imgUrl')?.setValue(file);
   }
+
+  onSubmit() {
+    const formData = new FormData();
+    formData.append('imgUrl',this.addProductForm.get('imgUrl')?.value);
+    formData.append('name',this.addProductForm.get('name')?.value);
+    formData.append('price',this.addProductForm.get('price')?.value);
+    formData.append('quantity',this.addProductForm.get('quantity')?.value);
+    this.store.dispatch(createProduct({data : this.addProductForm.value}));
+  }
+
+  // postProduct(){
+  //   this.store.dispatch(createProduct({data : this.addProductForm.value}));
+  // }
 
 }

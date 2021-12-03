@@ -1,10 +1,18 @@
-div {
-    display: inline-block;
+.main-div {
+    display: flex;
+}
+
+.products-div {
+    display: block;
+}
+
+.product-div{
     padding: 20px;
     margin: 2px;
-    //border: 1px solid black;
     text-align: left;
 }
+
+
 
 img {
     border-radius: 8px;

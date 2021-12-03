@@ -13,6 +13,9 @@ import {
   loadUsers,
   loadUsersFailure,
   loadUsersSuccess,
+  loginUser,
+  loginUserFailure,
+  loginUserSuccess,
   updateUser,
   updateUserFailure,
   updateUserSuccess,
@@ -27,6 +30,19 @@ export class UserEffects {
         this.userService.getUsers().pipe(
           map((data) => loadUsersSuccess({ data })),
           catchError((error) => of(loadUsersFailure({ error })))
+        )
+      )
+    )
+  );
+
+  //login user
+  loginUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loginUser),
+      mergeMap((action) =>
+        this.userService.login(action.data).pipe(
+          map((data) => loginUserSuccess({data})),
+          catchError((error) => of(loginUserFailure({ error })))
         )
       )
     )
