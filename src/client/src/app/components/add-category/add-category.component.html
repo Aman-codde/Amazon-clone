@@ -1,33 +1,17 @@
-{{($selectedProduct | async) | json}}
-<!--<ng-container *ngIf="($selectedProduct | async) as selectedProduct">
-    <div class="item-div">
-        <div class="image-div"><img src={{selectedProduct?.imgUrl}}></div>
-        <div class="details-div">
-        <p class="productName">{{selectedProduct?.product_name}}</p>
-        <p class="price">$ <strong>{{selectedProduct?.price}}</strong><p>
-        <p class="qty">{{selectedProduct?.quantity}} </p>
-        </div>
-    </div>
-</ng-container>-->
 
-<!--<ng-container *ngIf = "($categories | async) as categories">
-    <form [formGroup] = 'addCategory'>
-        <select class="custom-select" (change)="changeCategory($event)" formControlName="categoryName">
-            <option value="">Choose category</option>
+<ng-container *ngIf = "($categories | async) as categories">
+    <form [formGroup] = 'addCategoryForm' class="addCategoryForm">
+        <input type="text" formControlName="category_name" placeholder="category name">
+        <select class="custom-select" (change)="changeCategory($event)" formControlName="parent_category">
+            <option value="">Choose Parent category</option>
             <option *ngFor="let category of categories" [ngValue]="category?._id">{{category.category_name}}</option>
         </select>
+        <button (click)="createCategory()">Add Category</button>
     </form>
-</ng-container>-->
+    Form Value: {{ addCategoryForm.value | json }}
+</ng-container>
 
-<!--<ng-container *ngIf = "($products | async) as products">
-    <form [formGroup] = 'updateProduct'>
-        <select formControlName="productName" (change)="changeProduct($event)">
-            <option value="">Choose Product</option>
-            <option *ngFor="let product of products" [ngValue]="product._id">{{product.product_name}}
-            </option>
-        </select>
-    </form>
-</ng-container>-->
+
 
 
 

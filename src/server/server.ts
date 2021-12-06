@@ -54,6 +54,11 @@ app.get('/categories', function(req,res) {
 
 // create category
 app.post('/create-category', function(req,res) {
+    console.log("create new category:", req.body);
+    if(req.body.parent_category == '') {
+        req.body = {category_name: req.body.category_name}
+        console.log("new category without parent:", req.body);
+    }
     const new_category = new CategoryModel(req.body)
     new_category
     .save()
@@ -61,7 +66,10 @@ app.post('/create-category', function(req,res) {
         console.log('new category created', {data});
         res.json({data})
     })
-    .catch(err => res.json(err))//which status number?
+    .catch(err => {
+        console.log(err);
+        res.status(501).json(err)
+    })//which status number?
 })
 
 // update (or add) parent category if not assigned etc.

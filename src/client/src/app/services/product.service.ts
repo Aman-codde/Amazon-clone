@@ -37,6 +37,11 @@ export class ProductService {
     return this.api.get<{data: Category[]}>('categories').pipe(map(res => res.data),tap(data => console.log('product service data', data)));
   }
 
+  createCategory(category: Category) {
+    console.log("services data: ", category);
+    return this.api.post<Category,Category>('create-category',category);
+  }
+
   addCategoryToProduct(productId: string,categoryId: string){
     console.log("ProductId:",productId,"categoryId:",categoryId);
     return this.api.put<{data:string},string>('update-product/'+productId,categoryId)
