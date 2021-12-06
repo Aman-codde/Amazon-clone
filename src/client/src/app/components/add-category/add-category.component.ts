@@ -34,11 +34,7 @@ export class AddCategoryComponent implements OnInit {
   changeCategory(e: any) {
       console.log(e.target.value);   
   }
-
-  // get categoryName() {
-  //   return this.addCategoryForm.get('categoryName');
-  // }
-
+  
   createCategory() {
     return this.productService.createCategory(this.addCategoryForm.value).subscribe();
   }
