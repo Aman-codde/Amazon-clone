@@ -2,8 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-
-import { ProductService } from 'src/app/services/product.service';
 import { AppState } from 'src/app/store';
 import { loadProducts, selectProductAction } from 'src/app/store/actions/product/product.actions';
 import { selectedProductSelector } from 'src/app/store/selectors/product/product.selectors';
@@ -20,7 +18,6 @@ export class ProductsListComponent implements OnInit {
   selectedProduct : Product| null = null;
 
   constructor(
-    
     private store: Store<AppState>,
     private route: ActivatedRoute,
     private router: Router,
@@ -49,12 +46,5 @@ export class ProductsListComponent implements OnInit {
   isSelected(selectedProduct: Product | null, product: Product){
     return selectedProduct?._id === product._id;
   }
-
-  //goToProduct(id: any) {
-    //console.log('goToProduct',id)
-    //this.router.navigate(['/product/'], {queryParams: {_id: id}})
-    
-    //return this.router.navigate(['/product/',id])
-  //}
   
 }

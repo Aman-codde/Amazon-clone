@@ -1,5 +1,43 @@
-<h3>Update Product</h3>
-<ng-container *ngIf="($selectedProduct | async) as selectedProduct">
+
+<div class="products-div">
+    <table id="products">
+        <thead>
+            <tr>
+                <th>Sr.No.</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity(In Stock)</th>
+                <th>Update Product</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let product of (products$ | async); let i = index">
+                <tr class="products-details-row">
+                    <td>
+                        {{i+1}}
+                    </td>
+                    <td class="product-img-column">
+                        <img src="{{product?.imgUrl}}">
+                    </td>
+                    <td class="product-name-column">
+                        <p>{{product.product_name}}</p>
+                    </td>
+                    <td class="product-price-column">
+                        <p>{{product.price}}</p>
+                    </td>
+                    <td class="product-stock-column">
+                        <p>{{product.quantity}}</p>
+                    </td>
+                    <td>
+                        <button (click)="editProduct(product)">Edit
+                            <app-edit-product [selectedProduct]="(product)"></app-edit-product>
+                        </button>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+</div>
+<!-- <ng-container *ngIf="($selectedProduct | async) as selectedProduct">
     <div class="item-div">
         <div class="image-div"><img src={{selectedProduct?.imgUrl}}></div>
         <div class="details-div">
@@ -22,4 +60,4 @@
     </form>
 </ng-container>
 </ng-container>
-
+ -->

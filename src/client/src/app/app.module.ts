@@ -29,6 +29,8 @@ import { CategoriesListComponent } from './components/categories-list/categories
 import { AddCategoryComponent } from './components/add-category/add-category.component';
 import { UpdateProductComponent } from './components/update-product/update-product.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     AddCategoryComponent,
     UpdateProductComponent,
     SidebarComponent,
+    EditProductComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,
