@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { ProductService } from 'src/app/services/product.service';
 import { AppState } from 'src/app/store';
+import { selectProductToBeUpdatedAction } from 'src/app/store/actions/product/product.actions';
+import { selectedProductToBeUpdatedSelector } from 'src/app/store/selectors/product/product.selectors';
 import { Category } from '../../../../../shared/models/category.model';
 import { Product } from '../../../../../shared/models/product.model';
 
@@ -45,7 +46,6 @@ export class UpdateProductComponent implements OnInit {
   
   changeCategory(e: any){
     console.log(e.target.value);
-    ;
   }
 
   addCategoryToProduct(productId: any) {
@@ -54,8 +54,9 @@ export class UpdateProductComponent implements OnInit {
     this.productService.addCategoryToProduct(productId,this.categoryId).subscribe();
   }
 
-  editProduct(product: Product) {
-    this.router.navigate(['/editProduct']);
+  editProduct(product: any) {
+    this.router.navigate([`/edit-product/${product._id}`]);
+    this.store.dispatch(selectProductToBeUpdatedAction({data: product}))
   }
 
 }

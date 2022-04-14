@@ -28,6 +28,11 @@ export class ProductService {
     return this.api.post<{data: Product},{productId: string}>('product/'+productId, {productId}).pipe(map(res => res.data));
   }
 
+  addCategoriesToProduct(product: Product,categoryIds: string[]) {
+    console.log("services:",product._id,categoryIds)
+    return this.api.put<{data: Product},{categoryIds: string[]}>('update-product-categories/'+product._id,{categoryIds}).subscribe();
+  }
+
   createProduct(product: Product) {
     console.log(product)
     return this.api.post<{data:Product},Product>('create-product',product)
@@ -45,6 +50,10 @@ export class ProductService {
   addCategoryToProduct(productId: string,categoryId: string){
     console.log("ProductId:",productId,"categoryId:",categoryId);
     return this.api.put<{data:string},string>('update-product/'+productId,categoryId)
+  }
+
+  updateProduct(productId: any) {
+    this.api.post('update-product/',productId)
   }
 
  

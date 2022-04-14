@@ -94,6 +94,7 @@ app.post('/products', function(req,res){
     }
     //console.log('hello',query);
     ProductModel.find(query)
+    .populate('categories')
     .then(data => res.json({data}))
     .catch(err => {
         res.status(501)
@@ -132,9 +133,28 @@ app.post('/create-product', function(req,res){
     })
 });
 
+app.put('/update-product-categories/:id', function(req, res) {
+    console.log("product id: ", req.params.id, "categories: ", req.body.categoryIds.categoryIdArray)
+    const _id= req.params.id;
+    ProductModel
+    .findByIdAndUpdate(
+        _id,
+        {
+            $addToSet: {
+                categories: {$each: req.body.categoryIds.categoryIdArray}
+            }
+        },
+        {new: true})
+    .then((data) => {
+        console.log('Product Category updated: ', {data})
+        res.json({data})})
+    .catch(err => res.json(err))
+})
+
 // delete product
 app.delete('/delete-product/:id', function(req, res) {
     const _id = req.params.id;
+    console.log(_id);
     ProductModel.findByIdAndDelete(_id).then((data) => {
         console.log(data);
         res.json({data});

@@ -1,7 +1,7 @@
 import { state } from '@angular/animations';
 import { createReducer, on } from '@ngrx/store';
 import { Product } from '../../../../../../shared/models/product.model';
-import {loadProduct, loadProductsSuccess, loadProductSuccess, selectProductAction } from '../../actions/product/product.actions';
+import {loadProduct, loadProductsSuccess, loadProductSuccess, selectProductAction, selectProductToBeUpdatedAction } from '../../actions/product/product.actions';
 
 
 export const productFeatureKey = 'product';
@@ -9,13 +9,15 @@ export const productFeatureKey = 'product';
 export interface State {
   products: Product[];
   product: Product | null;
-  selectedProduct: Product | null
+  selectedProduct: Product | null;
+  selectProductToBeUpdated: Product | null
 }
 
 export const initialState: State = {
   products : [],
   product: null,
-  selectedProduct: null
+  selectedProduct: null,
+  selectProductToBeUpdated: null
 };
 
 
@@ -31,6 +33,9 @@ export const reducer = createReducer(
 
   on(selectProductAction, (state,action) => {
     return  {...state, selectedProduct: action.data}
+  }),
+  on(selectProductToBeUpdatedAction, (state,action) => {
+    return {...state, selectProductToBeUpdated: action.data}
   })
   
 );

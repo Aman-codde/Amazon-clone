@@ -8,6 +8,7 @@
                 <th>Name</th>
                 <th>Price</th>
                 <th>Quantity(In Stock)</th>
+                <th>Categories</th>
                 <th>Update Product</th>
             </tr>
         </thead>
@@ -28,36 +29,17 @@
                     <td class="product-stock-column">
                         <p>{{product.quantity}}</p>
                     </td>
+                    <td class="product-category-column">
+                        <p *ngFor="let category of product.categories">
+                            {{category.category_name}}
+                        </p>
+                    </td>
                     <td>
-                        <button (click)="editProduct(product)">Edit
-                            <app-edit-product [selectedProduct]="(product)"></app-edit-product>
+                        <button (click)="editProduct(product)">
+                            Edit
                         </button>
                     </td>
                 </tr>
         </tbody>
     </table>
 </div>
-<!-- <ng-container *ngIf="($selectedProduct | async) as selectedProduct">
-    <div class="item-div">
-        <div class="image-div"><img src={{selectedProduct?.imgUrl}}></div>
-        <div class="details-div">
-        <p class="productName">{{selectedProduct?.product_name}}</p>
-        <p class="price">Price: $ <strong>{{selectedProduct?.price}}</strong><p>
-        <p class="qty">Qty(In Stock): {{selectedProduct?.quantity}} </p>
-        <li *ngFor = "let category of selectedProduct?.categories">
-            Category: {{category?.category_name}}
-        </li>
-        </div>
-    </div>
-    <h3>Add Category to Product</h3>
-<ng-container *ngIf = "($categories | async) as categories">
-    <form [formGroup] = 'addCategory'>
-        <select class="custom-select" (change)="changeCategory($event)" formControlName="categoryName">
-            <option value="">Choose category</option>
-            <option *ngFor="let category of categories" [ngValue]="category?._id">{{category.category_name}}</option>
-        </select>
-        <button (click)="addCategoryToProduct(selectedProduct._id)">Add Category</button>
-    </form>
-</ng-container>
-</ng-container>
- -->

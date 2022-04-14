@@ -21,7 +21,7 @@ const routes: Routes = [
   {path: 'addCategory', component: AddCategoryComponent},
   {path: 'updateProduct', component: UpdateProductComponent},
   {path: 'sidebar', component: SidebarComponent},
-  {path: 'editProduct', component: EditProductComponent}
+  {path: 'editProduct/:id', component: EditProductComponent}
 ];
 
 @NgModule({

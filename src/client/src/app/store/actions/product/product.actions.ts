@@ -49,9 +49,14 @@ export const createProductFailure = createAction(
   props<{ err: Error }>()
 )
 
-
 // selected product 
 export const selectProductAction = createAction(
   '[Product] Select Product',
+  props<{ data: Product | null }>()
+)
+
+//seledted Product to be updated
+export const selectProductToBeUpdatedAction = createAction(
+  '[Product] Select Product To Be Updated',
   props<{ data: Product | null }>()
 )
